@@ -15,6 +15,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SummaryActivity" android:label="Personal Consumption Summary"></activity>
     </application>
 
 </manifest>
