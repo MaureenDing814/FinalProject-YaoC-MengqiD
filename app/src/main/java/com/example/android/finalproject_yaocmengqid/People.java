@@ -28,4 +28,12 @@ public class People {
     public String getEmail() {
         return email;
     }
+
+    @Override
+    public String toString() {
+        return "People{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

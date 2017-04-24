@@ -64,4 +64,15 @@ public class Expense {
     public void setMembers(ArrayList<People> members) {
         this.members = members;
     }
+
+    @Override
+    public String toString() {
+        return "Expense{" +
+                "amount=" + amount +
+                ", date='" + date + '\'' +
+                ", expenseType='" + expenseType + '\'' +
+                ", payers=" + payers +
+                ", members=" + members +
+                '}';
+    }
 }
