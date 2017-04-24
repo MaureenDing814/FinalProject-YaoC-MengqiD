@@ -18,6 +18,7 @@
 
             <EditText
                 android:id="@+id/billAmount"
+                android:inputType="numberDecimal"
                 android:hint="Please record the bill" />
 
         </TableRow>
