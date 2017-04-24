@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1027993283381",
+    "firebase_url": "https://finalproject-yaoc-mengqid.firebaseio.com",
+    "project_id": "finalproject-yaoc-mengqid",
+    "storage_bucket": "finalproject-yaoc-mengqid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027993283381:android:dabf1cc2f3615d28",
+        "android_client_info": {
+          "package_name": "com.example.android.finalproject_yaocmengqid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1027993283381-9tq7h5j03342r2kip97h5v5qos750f69.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.android.finalproject_yaocmengqid",
+            "certificate_hash": "07c4df97cafb75e63478963e05be3d6e76542a6e"
+          }
+        },
+        {
+          "client_id": "1027993283381-jiji3057g42cq5vjthkhstlf9v42o1sm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZSoaVOg_tmyA_lb0qBBs05zmEEu4xaFs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1027993283381-jiji3057g42cq5vjthkhstlf9v42o1sm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

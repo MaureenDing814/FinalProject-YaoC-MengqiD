@@ -1,7 +1,6 @@
 package com.example.android.finalproject_yaocmengqid;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,7 +25,7 @@ public class CalculateActivity extends Activity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(myDataset);
+        mAdapter = new CalculateAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);
     }
 

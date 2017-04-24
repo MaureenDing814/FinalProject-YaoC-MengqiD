@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FinalProject-YaoC&amp;MengqiD</string>
+    <string name="auth_failed">Log in failed</string>
 </resources>
