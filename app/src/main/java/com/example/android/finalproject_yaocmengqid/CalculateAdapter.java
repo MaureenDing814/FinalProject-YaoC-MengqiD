@@ -10,7 +10,7 @@ import android.widget.TextView;
  */
 
 
-    public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+    public class CalculateAdapter extends RecyclerView.Adapter<CalculateAdapter.ViewHolder> {
         private String[] mDataset;
 
         // Provide a reference to the views for each data item
@@ -26,17 +26,17 @@ import android.widget.TextView;
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public MyAdapter(String[] myDataset) {
+        public CalculateAdapter(String[] myDataset) {
             mDataset = myDataset;
         }
 
         // Create new views (invoked by the layout manager)
         @Override
-        public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                       int viewType) {
+        public CalculateAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                              int viewType) {
             // create a new view
             TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.list_item, parent, false);
+                    .inflate(R.layout.calculate_item, parent, false);
             // set the view's size, margins, paddings and layout parameters
             ViewHolder vh = new ViewHolder(v);
             return vh;
