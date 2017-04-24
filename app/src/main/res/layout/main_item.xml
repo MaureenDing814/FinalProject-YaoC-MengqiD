@@ -41,10 +41,3 @@ android:id="@+id/money"
         android:textSize="12dp" />
 
 </LinearLayout>
-
-
-
-
-
-
-    </LinearLayout>
