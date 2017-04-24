@@ -72,7 +72,7 @@ import java.util.ArrayList;
             }
             holder.mReceiver.setText("Paid by + " + payerString);
 
-            switch ()
+
             holder.mIcon.setImageResource(R.drawable.common_full_open_on_phone);
 
         }
