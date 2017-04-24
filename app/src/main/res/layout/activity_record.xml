@@ -146,6 +146,10 @@
                 android:textSize="17dp" />
         </TableRow>
     </TableLayout>
+
+    <Button
+        android:text="save"
+        android:onClick="saveExpense"/>
 </TableLayout>
 
 
