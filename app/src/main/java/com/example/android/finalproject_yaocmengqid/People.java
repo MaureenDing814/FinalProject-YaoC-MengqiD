@@ -13,6 +13,7 @@ public class People {
         this.email = email;
     }
 
+
     public void setName(String name) {
         this.name = name;
     }
