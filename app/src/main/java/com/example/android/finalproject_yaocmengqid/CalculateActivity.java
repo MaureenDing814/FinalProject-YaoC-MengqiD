@@ -29,5 +29,5 @@ public class CalculateActivity extends Activity {
         mAdapter = new MyAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);
     }
-    ...
+
 }
