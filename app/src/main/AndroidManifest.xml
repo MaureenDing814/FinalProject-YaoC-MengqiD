@@ -18,8 +18,10 @@
         <activity
             android:name=".SummaryActivity"
             android:label="Personal Consumption Summary" />
-        <activity android:name=".CalculateActivity"
-            android:label="Calculate"></activity>
+        <activity
+            android:name=".CalculateActivity"
+            android:label="Calculate" />
+        <activity android:name=".RecordActivity"></activity>
     </application>
 
 </manifest>

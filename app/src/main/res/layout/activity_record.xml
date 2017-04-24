@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1">
+
+        <TableRow>
+
+            <TextView
+                android:layout_column="1"
+                android:text="Total Amount: $"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/billAmount"
+                android:hint="Please record the bill" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_column="1"
+                android:text="Date"
+                android:textSize="16sp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="showDatePickerDialog"
+                android:text="Please pick a date" />
+
+
+        </TableRow>
+
+
+    </TableLayout>
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:stretchColumns="0">
+
+        <TableRow>
+
+            <RadioButton
+                android:id="@+id/food_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="food" />
+
+            <RadioButton
+                android:id="@+id/trans_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="transportation" />
+        </TableRow>
+
+        <TableRow>
+
+            <RadioButton
+                android:id="@+id/entertainment_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="entertainment" />
+
+            <RadioButton
+                android:id="@+id/shelter_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="shelter" />
+        </TableRow>
+
+        <TableRow>
+
+            <RadioButton
+                android:id="@+id/others_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="others" />
+
+        </TableRow>
+
+
+    </TableLayout>
+
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1">
+
+        <TableRow>
+
+            <TextView
+                android:layout_column="0"
+                android:layout_marginBottom="10dp"
+                android:text="Payer"
+                android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow android:layout_marginBottom="20dp">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/profilepng" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="pay"
+                android:textSize="17dp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_column="0"
+                android:layout_marginBottom="10dp"
+                android:text="Members"
+                android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow android:layout_marginBottom="20dp">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/profilepng" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="took part in"
+                android:textSize="17dp" />
+        </TableRow>
+    </TableLayout>
+</TableLayout>
+
+
