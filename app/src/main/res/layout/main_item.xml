@@ -13,6 +13,7 @@
             android:layout_marginBottom="5dp">
 
             <ImageView
+                android:id="@+id/icon"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:src="@drawable/food_icon" />
@@ -24,12 +25,14 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/item_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Fish and Chips"
                     android:textSize="17dp" />
 
                 <TextView
+                    android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3.17.2017"
@@ -43,6 +46,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
@@ -50,6 +54,7 @@
                     android:textSize="17dp" />
 
                 <TextView
+                    android:id="@+id/receiver_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Paid by Mrain"
