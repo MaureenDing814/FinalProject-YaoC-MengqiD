@@ -10,7 +10,9 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -18,6 +20,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -37,7 +41,9 @@ public class EditActivity extends AppCompatActivity {
     private ImageView imageView;
     private File photoFile;
     private StorageReference mStorageRef;
+    private FirebaseUser user;
     private Uri fileToUpload;
+    private String TAG = "EditActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +58,37 @@ public class EditActivity extends AppCompatActivity {
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     mStorageRef = FirebaseStorage.getInstance().getReference(user.getUid());
+                    ((EditText)findViewById(R.id.editText_username)).setText(user.getDisplayName());
+
+                    try {
+                        final File localFile = File.createTempFile("images", "jpg");
+                        mStorageRef.child("images/upload.jpg").getFile(localFile)
+                                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                        // Successfully downloaded data to local file
+                                        Picasso.with(EditActivity.this).load(localFile)
+                                                .resize(imageView.getWidth(),imageView.getHeight())
+                                                .centerInside()
+                                                .into(imageView);
+                                        // ...
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                            }
+                        });
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         };
+
         mAuth.addAuthStateListener(mAuthListener);
-
-
     }
 
     public void takePhoto(View view) {
@@ -121,9 +149,7 @@ public class EditActivity extends AppCompatActivity {
                 .resize(imageView.getWidth(),imageView.getHeight())
                 .centerInside()
                 .into(imageView);
-        // Use picasso library to show the image in this activity.
-        //resize: feature that can help with resizing the image
-        // before you call a method(before .), you can change the line
+        Log.d(TAG, fileToUpload.toString());
     }
 
     public void decodeUri(Uri uri) throws FileNotFoundException {
@@ -131,6 +157,7 @@ public class EditActivity extends AppCompatActivity {
         // Get the dimensions of the View
         int targetW = imageView.getWidth();
         int targetH = imageView.getHeight();
+        targetH = 100;
 
         // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
@@ -150,14 +177,12 @@ public class EditActivity extends AppCompatActivity {
 
         Bitmap image = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri), null, bmOptions);
         imageView.setImageBitmap(image);
-        ImageView upload = (ImageView) findViewById(R.id.upload_photo);
-        upload.setVisibility(View.VISIBLE);
+        /*ImageView upload = (ImageView) findViewById(R.id.upload_photo);
+        upload.setVisibility(View.VISIBLE);*/
     }
 
-    public void upload(View view){
+    public void updateProfile(View view){
         StorageReference riversRef = mStorageRef.child("images/upload.jpg");
-
-
 // Register observers to listen for when the download is done or if it fails
         riversRef.putFile(fileToUpload)
                 .addOnFailureListener(new OnFailureListener() {
@@ -175,5 +200,9 @@ public class EditActivity extends AppCompatActivity {
             }
         });
 
+        String newname = ((EditText)findViewById(R.id.editText_username)).getText().toString();
+        user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(newname).build());
+
+        finish();
     }
 }
