@@ -3,6 +3,7 @@ package com.example.android.finalproject_yaocmengqid;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.android.finalproject_yaocmengqid.Utils.CircularTransform;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,9 +28,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -144,61 +148,67 @@ public class EditActivity extends AppCompatActivity {
         else if (requestCode == REQUEST_PICK_PHOTO) {
             fileToUpload = data.getData();
         }
+
+        final Target target = new Target() {
+            @Override
+            public void onPrepareLoad(Drawable arg0) {
+                return;
+            }
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom arg1) {
+                try {
+                    File file = File.createTempFile("cropped", "png");
+                    FileOutputStream ostream = new FileOutputStream(file);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 80, ostream);
+                    ostream.close();
+                    fileToUpload = Uri.fromFile(file);
+                    Log.d(TAG, "Cropped");
+                } catch (Exception e) {
+                    Log.d(TAG, e.toString());
+                }
+            }
+            @Override
+            public void onBitmapFailed(Drawable arg0) {
+                return;
+            }
+        };
+
         Picasso.with(this)
                 .load(fileToUpload)
                 .resize(imageView.getWidth(),imageView.getHeight())
+                .transform(new CircularTransform())
+                .centerInside().into(target);
+        Log.d(TAG, fileToUpload.toString());
+        imageView.setTag(target);
+        Picasso.with(this)
+                .load(fileToUpload)
+                .resize(imageView.getWidth(),imageView.getHeight())
+                .transform(new CircularTransform())
                 .centerInside()
                 .into(imageView);
         Log.d(TAG, fileToUpload.toString());
     }
 
-    public void decodeUri(Uri uri) throws FileNotFoundException {
-
-        // Get the dimensions of the View
-        int targetW = imageView.getWidth();
-        int targetH = imageView.getHeight();
-        targetH = 100;
-
-        // Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        // I just want to know the dimension, don't pass me the pixels yet!
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeStream(getContentResolver().openInputStream(uri), null, bmOptions);
-
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-
-        // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
-
-        // Decode the image file into a Bitmap sized to fill the View
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
-
-        Bitmap image = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri), null, bmOptions);
-        imageView.setImageBitmap(image);
-        /*ImageView upload = (ImageView) findViewById(R.id.upload_photo);
-        upload.setVisibility(View.VISIBLE);*/
-    }
-
     public void updateProfile(View view){
-        StorageReference riversRef = mStorageRef.child("images/upload.jpg");
+        if (fileToUpload != null) {
+            StorageReference riversRef = mStorageRef.child("images/upload.jpg");
 // Register observers to listen for when the download is done or if it fails
-        riversRef.putFile(fileToUpload)
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        Toast.makeText(EditActivity.this, "Upload unsuccessful", Toast.LENGTH_SHORT).show();
-                        // Handle unsuccessful uploads
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(EditActivity.this,"Upload successful", Toast.LENGTH_SHORT).show();
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                //Uri downloadUrl = taskSnapshot.getDownloadUrl();
-            }
-        });
+            riversRef.putFile(fileToUpload)
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            Toast.makeText(EditActivity.this, "Upload unsuccessful", Toast.LENGTH_SHORT).show();
+                            // Handle unsuccessful uploads
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(EditActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                    //Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                }
+            });
+        }
 
         String newname = ((EditText)findViewById(R.id.editText_username)).getText().toString();
         user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(newname).build());
