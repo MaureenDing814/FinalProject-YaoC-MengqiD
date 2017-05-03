@@ -39,7 +39,8 @@ public class CalculateActivity extends Activity {
     public void share(View view){
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:"));
-        intent.putExtra(Intent.EXTRA_SUBJECT, "You still need to pay");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Bill Summary");
+        intent.putExtra(Intent.EXTRA_TEXT, "You still need to pay");
         if (intent.resolveActivity(getPackageManager())!=null)
         {
             startActivity(intent);
