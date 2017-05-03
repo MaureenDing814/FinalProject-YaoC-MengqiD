@@ -18,8 +18,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.android.finalproject_yaocmengqid.Utils.CircularTransform;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -162,7 +164,6 @@ public class EditActivity extends AppCompatActivity {
                     bitmap.compress(Bitmap.CompressFormat.PNG, 80, ostream);
                     ostream.close();
                     fileToUpload = Uri.fromFile(file);
-                    Log.d(TAG, "Cropped");
                 } catch (Exception e) {
                     Log.d(TAG, e.toString());
                 }
@@ -178,7 +179,6 @@ public class EditActivity extends AppCompatActivity {
                 .resize(imageView.getWidth(),imageView.getHeight())
                 .transform(new CircularTransform())
                 .centerInside().into(target);
-        Log.d(TAG, fileToUpload.toString());
         imageView.setTag(target);
         Picasso.with(this)
                 .load(fileToUpload)
@@ -186,32 +186,38 @@ public class EditActivity extends AppCompatActivity {
                 .transform(new CircularTransform())
                 .centerInside()
                 .into(imageView);
-        Log.d(TAG, fileToUpload.toString());
+        //Log.d(TAG, fileToUpload.toString());
     }
 
     public void updateProfile(View view){
+        String newName = ((EditText)findViewById(R.id.editText_username)).getText().toString();
+        Log.d(TAG, "new name: " + newName);
+        user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(newName).build())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Log.d(TAG, "Update profile successful: " + task.isSuccessful());
+                    }
+                });
+
         if (fileToUpload != null) {
             StorageReference riversRef = mStorageRef.child("images/upload.jpg");
-// Register observers to listen for when the download is done or if it fails
             riversRef.putFile(fileToUpload)
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
-                            Toast.makeText(EditActivity.this, "Upload unsuccessful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditActivity.this, "Profile picture upload unsuccessful", Toast.LENGTH_SHORT).show();
                             // Handle unsuccessful uploads
                         }
                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(EditActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditActivity.this, "Profile picture upload successful", Toast.LENGTH_SHORT).show();
                     // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                     //Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 }
             });
         }
-
-        String newname = ((EditText)findViewById(R.id.editText_username)).getText().toString();
-        user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(newname).build());
 
         finish();
     }
