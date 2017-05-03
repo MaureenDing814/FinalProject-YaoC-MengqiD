@@ -164,32 +164,12 @@ public class MainActivity extends AppCompatActivity
             help.setData(Uri.parse("mailto:"));
             help.putExtra(Intent.EXTRA_EMAIL, emailList );
             help.putExtra(Intent.EXTRA_SUBJECT, "Question");
-
-            if (help.resolveActivity(getPackageManager())!=null)
-            {
+            if (help.resolveActivity(getPackageManager())!=null) {
                 startActivity(help);
             }
-
-
         } else if (id == R.id.log_out) {
-
+            logout(item);
         }
-/*
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -52,8 +52,9 @@ public class EditActivity extends AppCompatActivity {
     private ImageView imageView;
     private File photoFile;
     private StorageReference mStorageRef;
-    private FirebaseUser user;
+    private FirebaseUser userAuth;
     private DatabaseReference mDatabaseRef;
+    //private People user;
     private Uri fileToUpload;
     private String TAG = "EditActivity";
 
@@ -70,9 +71,16 @@ public class EditActivity extends AppCompatActivity {
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    mStorageRef = FirebaseStorage.getInstance().getReference(user.getUid());
+                FirebaseUser userAuth = firebaseAuth.getCurrentUser();
+                if (userAuth != null) {
+                    /*user = new People(userAuth.getUid());
+                    ((EditText)findViewById(R.id.editText_username)).setText(user.getName());
+                    Picasso.with(EditActivity.this).load(user.getProfilePicture())
+                            .resize(imageView.getWidth(),imageView.getHeight())
+                            .centerInside()
+                            .into(imageView);*/
+
+                    mStorageRef = FirebaseStorage.getInstance().getReference(userAuth.getUid());
                     //((EditText)findViewById(R.id.editText_username)).setText(user.getDisplayName());
                     // Fetch profile picture
                     try {
@@ -97,7 +105,7 @@ public class EditActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     // Get display name
-                    mDatabaseRef = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
+                    mDatabaseRef = FirebaseDatabase.getInstance().getReference("users").child(userAuth.getUid());
                     mDatabaseRef.child("name").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -216,7 +224,21 @@ public class EditActivity extends AppCompatActivity {
     public void updateProfile(View view){
         String newName = ((EditText)findViewById(R.id.editText_username)).getText().toString();
         Log.d(TAG, "new name: " + newName);
-        mDatabaseRef.child("name").setValue(newName);
+/*        user.setName(newName);
+        if (fileToUpload != null) {
+            user.setProfilePicture(fileToUpload);
+        }*/
+
+        mDatabaseRef.child("name").setValue(newName).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(EditActivity.this, "Update profile successfully!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(EditActivity.this, "Update profile failed!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         if (fileToUpload != null) {
             StorageReference riversRef = mStorageRef.child("images/upload.jpg");
@@ -224,13 +246,13 @@ public class EditActivity extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
-                            Toast.makeText(EditActivity.this, "Profile picture upload unsuccessful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditActivity.this, "Profile picture upload unsuccessful!", Toast.LENGTH_SHORT).show();
                             // Handle unsuccessful uploads
                         }
                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(EditActivity.this, "Profile picture upload successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditActivity.this, "Profile picture upload successful!", Toast.LENGTH_SHORT).show();
                     // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                     //Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 }

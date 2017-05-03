@@ -21,7 +21,9 @@
         <activity
             android:name=".CalculateActivity"
             android:label="Calculate" />
-        <activity android:name=".RecordActivity" />
+        <activity
+            android:name=".RecordActivity"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".LoginActivity"
             android:label="LoginActivity">

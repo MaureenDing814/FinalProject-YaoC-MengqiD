@@ -29,7 +29,6 @@ public class RecordActivity extends AppCompatActivity
     }
 
     public void saveExpense(View view){
-        startActivity(new Intent(this, MainActivity.class));
-
+        finish();
     }
 }
