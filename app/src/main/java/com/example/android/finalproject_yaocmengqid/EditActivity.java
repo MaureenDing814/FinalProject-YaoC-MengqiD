@@ -58,6 +58,7 @@ public class EditActivity extends AppCompatActivity {
                 }
             }
         };
+        mAuth.addAuthStateListener(mAuthListener);
 
 
     }
