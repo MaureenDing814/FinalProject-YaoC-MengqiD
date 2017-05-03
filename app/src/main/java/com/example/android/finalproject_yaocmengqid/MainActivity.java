@@ -171,4 +171,6 @@ public class MainActivity extends AppCompatActivity
     public void logout(MenuItem item) {
         mAuth.signOut();
     }
+
+    public void groupSummary(MenuItem item) {}
 }
