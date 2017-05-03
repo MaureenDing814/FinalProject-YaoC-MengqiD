@@ -35,21 +35,31 @@
             android:onClick="pickPhoto"/>
     </LinearLayout>
 
-    <EditText
+    <TextView
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Change User Name"/>
+        android:textSize="20sp"
+        android:textColor="#000000"
+        android:text="Change user name here:"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_username"
+        android:hint="Type user name here"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
         android:layout_marginTop="10dp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:onClick="updateProfile" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:scaleType="fitCenter"
         android:id="@+id/preview"
         android:layout_marginTop="20dp"/>
 
