@@ -23,6 +23,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
+import static com.example.android.finalproject_yaocmengqid.R.id.help;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -149,6 +151,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        String [] emailList =  {"dz2276@tc.columbia.edu"};
         if (id == R.id.setting) {
             startActivity(new Intent(this, EditActivity.class));
         } else if (id == R.id.manage_group) {
@@ -156,15 +159,15 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.summary) {
             startActivity(new Intent(this, SummaryActivity.class));
 
-        } else if (id == R.id.help) {
-            Intent intent = new Intent(Intent.ACTION_SENDTO);
-            intent.setData(Uri.parse("mailto:"));
-            intent.putExtra(Intent.EXTRA_EMAIL, "dz2276@tc.columbia.edu" );
-            intent.putExtra(Intent.EXTRA_SUBJECT, "You still need to pay");
+        } else if (id == help) {
+            Intent help = new Intent(Intent.ACTION_SENDTO);
+            help.setData(Uri.parse("mailto:"));
+            help.putExtra(Intent.EXTRA_EMAIL, emailList );
+            help.putExtra(Intent.EXTRA_SUBJECT, "Question");
 
-            if (intent.resolveActivity(getPackageManager())!=null)
+            if (help.resolveActivity(getPackageManager())!=null)
             {
-                startActivity(intent);
+                startActivity(help);
             }
 
 
