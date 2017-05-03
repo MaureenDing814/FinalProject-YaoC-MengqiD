@@ -150,9 +150,26 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         if (id== R.id.setting)
         {
-            Intent intent1 = 
+            startActivity(new Intent(this,EditActivity.class));
+        }
+        else if (id == R.id.manage_group)
+        {
+
+        }
+        else if (id == R.id.summary)
+        {
+
+        }
+        else if (id == R.id.help)
+        {
+
+        }
+        else if (id == R.id.log_out)
+        {
+
         }
 /*
+
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
