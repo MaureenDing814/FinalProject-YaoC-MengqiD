@@ -148,24 +148,15 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        if (id== R.id.setting)
-        {
-            startActivity(new Intent(this,EditActivity.class));
-        }
-        else if (id == R.id.manage_group)
-        {
+        if (id == R.id.setting) {
+            startActivity(new Intent(this, EditActivity.class));
+        } else if (id == R.id.manage_group) {
 
-        }
-        else if (id == R.id.summary)
-        {
+        } else if (id == R.id.summary) {
 
-        }
-        else if (id == R.id.help)
-        {
+        } else if (id == R.id.help) {
 
-        }
-        else if (id == R.id.log_out)
-        {
+        } else if (id == R.id.log_out) {
 
         }
 /*
@@ -193,5 +184,6 @@ public class MainActivity extends AppCompatActivity
         mAuth.signOut();
     }
 
-    public void groupSummary(MenuItem item) {}
+    public void groupSummary(MenuItem item) {
+    }
 }

@@ -8,7 +8,7 @@ public class People {
     String name;
     String email;
 
-    public People(){
+    public People(String name, String email){
         this.name = name;
         this.email = email;
     }
