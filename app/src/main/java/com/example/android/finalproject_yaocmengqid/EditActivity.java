@@ -4,15 +4,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -40,7 +38,6 @@ public class EditActivity extends AppCompatActivity {
     private File photoFile;
     private StorageReference mStorageRef;
     private Uri fileToUpload;
-    private String TAG = "EditActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,26 +46,19 @@ public class EditActivity extends AppCompatActivity {
 
         imageView = (ImageView) findViewById(R.id.preview);
 
-
         FirebaseAuth mAuth;
         FirebaseAuth.AuthStateListener mAuthListener;
-
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     mStorageRef = FirebaseStorage.getInstance().getReference(user.getUid());
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
-                // ...
             }
         };
+
 
     }
 
