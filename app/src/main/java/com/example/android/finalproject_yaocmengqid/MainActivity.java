@@ -1,6 +1,7 @@
 package com.example.android.finalproject_yaocmengqid;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -153,8 +154,19 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.manage_group) {
 
         } else if (id == R.id.summary) {
+            startActivity(new Intent(this, SummaryActivity.class));
 
         } else if (id == R.id.help) {
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:"));
+            intent.putExtra(Intent.EXTRA_EMAIL, "dz2276@tc.columbia.edu" );
+            intent.putExtra(Intent.EXTRA_SUBJECT, "You still need to pay");
+
+            if (intent.resolveActivity(getPackageManager())!=null)
+            {
+                startActivity(intent);
+            }
+
 
         } else if (id == R.id.log_out) {
 
@@ -185,5 +197,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void groupSummary(MenuItem item) {
+        startActivity(new Intent(this, SummaryActivity.class));
     }
+
+    public void calculate(View view) {
+        startActivity(new Intent(this, CalculateActivity.class));
+    }
+
+
 }

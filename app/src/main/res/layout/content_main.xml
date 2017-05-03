@@ -128,7 +128,8 @@
             android:id="@+id/balanceExpenses"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="balance expenses" />
+            android:text="balance expenses"
+            android:onClick="calculate"/>
 
 
     </LinearLayout>

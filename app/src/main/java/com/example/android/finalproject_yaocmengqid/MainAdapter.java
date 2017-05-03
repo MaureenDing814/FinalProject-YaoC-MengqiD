@@ -82,4 +82,8 @@ import java.util.ArrayList;
         public int getItemCount() {
             return mDataset.size();
         }
+
+        public void groupSummary(View view){
+
+        }
     }

@@ -1,6 +1,7 @@
 package com.example.android.finalproject_yaocmengqid;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -28,6 +29,7 @@ public class RecordActivity extends AppCompatActivity
     }
 
     public void saveExpense(View view){
+        startActivity(new Intent(this, MainActivity.class));
 
     }
 }

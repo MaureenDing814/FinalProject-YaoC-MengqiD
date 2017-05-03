@@ -1,9 +1,12 @@
 package com.example.android.finalproject_yaocmengqid;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -31,6 +34,17 @@ public class CalculateActivity extends Activity {
         // specify an adapter (see also next example)
         mAdapter = new CalculateAdapter(results);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    public void share(View view){
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_SUBJECT, "You still need to pay");
+        if (intent.resolveActivity(getPackageManager())!=null)
+        {
+            startActivity(intent);
+        }
+
     }
 
 }
