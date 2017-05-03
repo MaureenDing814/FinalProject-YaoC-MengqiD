@@ -25,6 +25,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -48,6 +53,7 @@ public class EditActivity extends AppCompatActivity {
     private File photoFile;
     private StorageReference mStorageRef;
     private FirebaseUser user;
+    private DatabaseReference mDatabaseRef;
     private Uri fileToUpload;
     private String TAG = "EditActivity";
 
@@ -67,8 +73,8 @@ public class EditActivity extends AppCompatActivity {
                 user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     mStorageRef = FirebaseStorage.getInstance().getReference(user.getUid());
-                    ((EditText)findViewById(R.id.editText_username)).setText(user.getDisplayName());
-
+                    //((EditText)findViewById(R.id.editText_username)).setText(user.getDisplayName());
+                    // Fetch profile picture
                     try {
                         final File localFile = File.createTempFile("images", "jpg");
                         mStorageRef.child("images/upload.jpg").getFile(localFile)
@@ -90,10 +96,28 @@ public class EditActivity extends AppCompatActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    // Get display name
+                    mDatabaseRef = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
+                    mDatabaseRef.child("name").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String value = dataSnapshot.getValue(String.class);
+                            ((EditText)findViewById(R.id.editText_username)).setText(value);
+                            Log.d(TAG, "User name is: " + value);
+                            mDatabaseRef.child("name").removeEventListener(this);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                            // Failed to read value
+                            Log.w(TAG, "Failed to read value.", error.toException());
+                        }
+                    });
+                } else {
+                    finish();
                 }
             }
         };
-
         mAuth.addAuthStateListener(mAuthListener);
     }
 
@@ -192,13 +216,7 @@ public class EditActivity extends AppCompatActivity {
     public void updateProfile(View view){
         String newName = ((EditText)findViewById(R.id.editText_username)).getText().toString();
         Log.d(TAG, "new name: " + newName);
-        user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(newName).build())
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Log.d(TAG, "Update profile successful: " + task.isSuccessful());
-                    }
-                });
+        mDatabaseRef.child("name").setValue(newName);
 
         if (fileToUpload != null) {
             StorageReference riversRef = mStorageRef.child("images/upload.jpg");
