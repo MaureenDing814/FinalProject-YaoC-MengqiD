@@ -30,6 +30,8 @@ public class People {
     private String uid;
     private String name;
     private String email;
+    private double pay;
+    private double loan;
     private Uri profilePicture;
 
     //private DatabaseReference mRef;
