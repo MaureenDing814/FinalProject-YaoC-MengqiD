@@ -20,19 +20,18 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.math.BigInteger;
 
 /**
  * Created by Maureen_Ding on 4/24/17.
  */
 
-public class People {
-    private String uid;
+public class People implements Serializable{
     private String name;
     private String email;
     private double pay;
     private double loan;
-    private Uri profilePicture;
 
     //private DatabaseReference mRef;
     //private StorageReference mStorageRef;
@@ -40,79 +39,14 @@ public class People {
     public People(){
     }
 
-    public People(String uid) {
-        this.uid = uid;
-        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
-        mRef.child("name").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                name = dataSnapshot.getValue(String.class);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-        mRef.child("email").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                email = dataSnapshot.getValue(String.class);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+    public People(String name, String email, double pay, double loan)
 
-        StorageReference mStorageRef = FirebaseStorage.getInstance().getReference(uid);
-        // Fetch profile picture
-        try {
-            final File localFile = File.createTempFile("images"+uid, "jpg");
-            mStorageRef.child("images/upload.jpg").getFile(localFile)
-                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            // Successfully downloaded data to local file
-                            profilePicture = Uri.fromFile(localFile);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                        }
-                    });
-        } catch (IOException e) {
-            Log.e("People " + uid, e.toString());
-        }
-    }
-
-
-    /*public void setName(String name) {
+    {
         this.name = name;
-        //mRef.child("name").setValue(name);
+        this.email=email;
+        this.pay = 0;
+        this.loan = 0;
     }
-
-    public void setEmail(String email) {
-        this.email = email;
-        //mRef.child("email").setValue(email);
-    }
-
-    public void setProfilePicture(final Uri profilePicture) {
-        if (profilePicture != null) {
-            mStorageRef.child("images/upload.jpg").putFile(profilePicture)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                            //Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                            People.this.profilePicture = profilePicture;
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                        }
-                    });
-        }
-    }*/
-
-    public Uri getProfilePicture() { return profilePicture; }
 
     public String getName() {
         return name;
@@ -122,7 +56,29 @@ public class People {
         return email;
     }
 
-    public String getUid() { return uid; }
+    public double getPay() {
+        return pay;
+    }
+
+    public double getLoan() {
+        return loan;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPay(double pay) {
+        this.pay = pay;
+    }
+
+    public void setLoan(double loan) {
+        this.loan = loan;
+    }
 
     @Override
     public String toString() {
