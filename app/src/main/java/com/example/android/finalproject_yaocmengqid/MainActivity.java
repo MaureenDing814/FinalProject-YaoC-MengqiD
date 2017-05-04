@@ -1,5 +1,6 @@
 package com.example.android.finalproject_yaocmengqid;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -155,6 +156,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.setting) {
             startActivity(new Intent(this, EditActivity.class));
         } else if (id == R.id.manage_group) {
+            startActivity(new Intent(this, GroupActivity.class));
 
         } else if (id == R.id.summary) {
             startActivity(new Intent(this, SummaryActivity.class));
