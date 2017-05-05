@@ -1,4 +1,4 @@
-package com.example.android.finalproject_yaocmengqid.Side_Menu;
+package com.example.android.finalproject_yaocmengqid.SideMenu;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -248,13 +248,13 @@ public class EditActivity extends AppCompatActivity {
                             // Handle unsuccessful uploads
                         }
                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(EditActivity.this, "Profile picture upload successful!", Toast.LENGTH_SHORT).show();
-                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                    //Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                }
-            });
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(EditActivity.this, "Profile picture upload successful!", Toast.LENGTH_SHORT).show();
+                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                            @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        }
+                    });
         }
 
         finish();

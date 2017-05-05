@@ -1,4 +1,4 @@
-package com.example.android.finalproject_yaocmengqid.Main_Content;
+package com.example.android.finalproject_yaocmengqid.MainContent;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
