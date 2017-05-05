@@ -28,10 +28,10 @@ import java.math.BigInteger;
  */
 
 public class People implements Serializable{
-    private String name;
-    private String email;
-    private double pay;
-    private double loan;
+    public String name;
+    public String email;
+    public double pay;
+    public double loan;
 
     //private DatabaseReference mRef;
     //private StorageReference mStorageRef;

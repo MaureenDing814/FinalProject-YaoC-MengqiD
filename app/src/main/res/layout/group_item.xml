@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#e2dfd7"
+        android:shadowColor="#b3b1b1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:id="@+id/member_name"
+            android:text="Maureen"
+            android:textSize="20sp"
+            android:padding="16sp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_margin="12dp"
+            android:layout_height="match_parent"
+            android:background="#716e6e"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:id="@+id/member_email"
+            android:text="3333@gmail.com"
+            android:textSize="16sp"
+            android:padding="16sp"
+            />
+    </LinearLayout>
+
+</LinearLayout>
