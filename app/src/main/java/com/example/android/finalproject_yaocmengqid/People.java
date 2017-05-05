@@ -1,4 +1,4 @@
-package com.example.android.finalproject_yaocmengqid.Main_Content;
+package com.example.android.finalproject_yaocmengqid;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
