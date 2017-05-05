@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         String [] emailList =  {"dz2276@tc.columbia.edu"};
         if (id == R.id.setting) {
-            startActivity(new Intent(this, EditActivity.class));
+            startActivity(new Intent(this, ProfileActivity.class));
         } else if (id == R.id.manage_group) {
             startActivity(new Intent(this, GroupActivity.class));
 

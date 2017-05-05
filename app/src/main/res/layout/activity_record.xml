@@ -97,17 +97,16 @@
         android:layout_height="wrap_content"
         android:stretchColumns="0">
 
-        <TableRow>
+        <TableRow
+            android:layout_marginBottom="10dp">
 
             <TextView
             android:layout_column="0"
-            android:layout_marginBottom="10dp"
             android:text="Payer"
             android:textSize="16sp" />
 
             <TextView
                 android:layout_column="0"
-                android:layout_marginBottom="10dp"
                 android:text=">>"
                 android:textSize="16sp" />
         </TableRow>

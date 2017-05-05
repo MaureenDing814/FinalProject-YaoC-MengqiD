@@ -71,12 +71,6 @@ public class EditActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser userAuth = firebaseAuth.getCurrentUser();
                 if (userAuth != null) {
-                    /*user = new People(userAuth.getUid());
-                    ((EditText)findViewById(R.id.editText_username)).setText(user.getName());
-                    Picasso.with(EditActivity.this).load(user.getProfilePicture())
-                            .resize(imageView.getWidth(),imageView.getHeight())
-                            .centerInside()
-                            .into(imageView);*/
 
                     mStorageRef = FirebaseStorage.getInstance().getReference(userAuth.getUid());
                     //((EditText)findViewById(R.id.editText_username)).setText(user.getDisplayName());
@@ -248,13 +242,14 @@ public class EditActivity extends AppCompatActivity {
                             // Handle unsuccessful uploads
                         }
                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(EditActivity.this, "Profile picture upload successful!", Toast.LENGTH_SHORT).show();
-                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                    //Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                }
-            });
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(EditActivity.this, "Profile picture upload successful!", Toast.LENGTH_SHORT).show();
+                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                            @SuppressWarnings("VisibleForTests")
+                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        }
+                    });
         }
 
         finish();
