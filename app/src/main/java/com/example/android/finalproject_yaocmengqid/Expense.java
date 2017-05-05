@@ -1,5 +1,6 @@
 package com.example.android.finalproject_yaocmengqid;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -7,7 +8,7 @@ import java.util.Date;
  * Created by YaoChen on 4/24/17.
  */
 
-public class Expense {
+public class Expense implements Serializable{
     double amount;
     String date;
     String expenseType;
