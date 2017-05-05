@@ -17,13 +17,15 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainContent.SummaryActivity"
-            android:label="Personal Consumption Summary" />
+            android:label="Personal Consumption Summary"
+            android:parentActivityName=".MainContent.MainActivity"/>
         <activity
             android:name=".MainContent.CalculateActivity"
-            android:label="Calculate" />
+            android:label="Calculate"
+            android:parentActivityName=".MainContent.MainActivity"/>
         <activity
             android:name=".MainContent.RecordActivity"
-            android:parentActivityName=".MainContent.MainActivity" />
+            android:parentActivityName=".MainContent.MainActivity"/>
         <activity
             android:name=".LoginActivity"
             android:label="LoginActivity">
@@ -37,8 +39,12 @@
             android:name=".MainContent.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SideMenu.ProfileActivity" />
-        <activity android:name=".SideMenu.EditActivity" />
+        <activity
+            android:name=".SideMenu.ProfileActivity"
+            android:parentActivityName=".MainContent.MainActivity"/>
+        <activity
+            android:name=".SideMenu.EditActivity"
+            android:parentActivityName=".MainContent.MainActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -50,7 +56,10 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".SideMenu.GroupActivity"></activity>
+        <activity
+            android:name=".SideMenu.GroupActivity"
+            android:parentActivityName=".MainContent.MainActivity">
+        </activity>
     </application>
 
 </manifest>
