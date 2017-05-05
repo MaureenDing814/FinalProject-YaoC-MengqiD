@@ -24,8 +24,8 @@ import com.example.android.finalproject_yaocmengqid.Expense;
 import com.example.android.finalproject_yaocmengqid.LoginActivity;
 import com.example.android.finalproject_yaocmengqid.People;
 import com.example.android.finalproject_yaocmengqid.R;
-import com.example.android.finalproject_yaocmengqid.SideMenu.EditActivity;
 import com.example.android.finalproject_yaocmengqid.SideMenu.GroupActivity;
+import com.example.android.finalproject_yaocmengqid.SideMenu.ProfileActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         String [] emailList =  {"dz2276@tc.columbia.edu"};
         if (id == R.id.setting) {
-            startActivity(new Intent(this, EditActivity.class));
+            startActivity(new Intent(this, ProfileActivity.class));
         } else if (id == R.id.manage_group) {
             startActivity(new Intent(this, ManageGroupActivity.class));
 
