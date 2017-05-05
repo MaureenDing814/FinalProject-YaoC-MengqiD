@@ -22,7 +22,7 @@
 
     <!-- A RecyclerView with some commonly used attributes -->
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/my_mainrecycler_view"
+        android:id="@+id/my_grouprecycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -35,7 +35,8 @@
         android:text="EDIT"
         android:id="@+id/edit_member"
         android:layout_marginTop="20dp"
-        android:onClick="saveMember"/>
+        android:onClick="edit"
+        />
 
 </LinearLayout>
 

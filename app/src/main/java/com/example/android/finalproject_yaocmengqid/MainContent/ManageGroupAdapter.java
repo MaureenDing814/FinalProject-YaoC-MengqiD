@@ -10,7 +10,7 @@ import com.example.android.finalproject_yaocmengqid.R;
 
 import java.util.ArrayList;
 
-    public class ManageGroupAdapter extends RecyclerView.Adapter<ManageGroupAdapter.ViewHolder> {
+public class ManageGroupAdapter extends RecyclerView.Adapter<ManageGroupAdapter.ViewHolder> {
         public ArrayList<People> mDataset;
 
         // Provide a reference to the views for each data item

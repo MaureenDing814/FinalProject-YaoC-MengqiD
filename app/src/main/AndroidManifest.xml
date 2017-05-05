@@ -60,6 +60,8 @@
             android:name=".SideMenu.GroupActivity"
             android:parentActivityName=".MainContent.MainActivity">
         </activity>
+        <activity android:name=".MainContent.ManageGroupActivity"
+            android:parentActivityName=".MainContent.MainActivity" />
     </application>
 
 </manifest>
