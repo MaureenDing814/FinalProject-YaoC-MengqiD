@@ -29,7 +29,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -71,17 +70,11 @@ public class EditActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser userAuth = firebaseAuth.getCurrentUser();
                 if (userAuth != null) {
-                    /*user = new People(userAuth.getUid());
-                    ((EditText)findViewById(R.id.editText_username)).setText(user.getName());
-                    Picasso.with(EditActivity.this).load(user.getProfilePicture())
-                            .resize(imageView.getWidth(),imageView.getHeight())
-                            .centerInside()
-                            .into(imageView);*/
-
                     mStorageRef = FirebaseStorage.getInstance().getReference(userAuth.getUid());
+                    mDatabaseRef = FirebaseDatabase.getInstance().getReference("users").child(userAuth.getUid());
                     //((EditText)findViewById(R.id.editText_username)).setText(user.getDisplayName());
                     // Fetch profile picture
-                    try {
+                    /*try {
                         final File localFile = File.createTempFile("images", "jpg");
                         mStorageRef.child("images/upload.jpg").getFile(localFile)
                                 .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
@@ -101,9 +94,29 @@ public class EditActivity extends AppCompatActivity {
                         });
                     } catch (IOException e) {
                         e.printStackTrace();
-                    }
+                    }*/
+                    // Display Picture
+                    mDatabaseRef.child("profilePhoto").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String url = dataSnapshot.getValue(String.class);
+                            if (url != null) {
+                                Picasso.with(EditActivity.this).load(Uri.parse(url))
+                                        .resize(imageView.getWidth(), imageView.getHeight())
+                                        .centerInside()
+                                        .into(imageView);
+                                Log.d(TAG, "Profile picture URL is: " + url);
+                            }
+                            mDatabaseRef.child("profilePhoto").removeEventListener(this);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                            // Failed to read value
+                            Log.w(TAG, "Failed to read value.", error.toException());
+                        }
+                    });
                     // Get display name
-                    mDatabaseRef = FirebaseDatabase.getInstance().getReference("users").child(userAuth.getUid());
                     mDatabaseRef.child("name").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -253,6 +266,7 @@ public class EditActivity extends AppCompatActivity {
                             Toast.makeText(EditActivity.this, "Profile picture upload successful!", Toast.LENGTH_SHORT).show();
                             // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                             @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            mDatabaseRef.child("profilePhoto").setValue(downloadUrl.toString());
                         }
                     });
         }
