@@ -16,14 +16,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Main_Content.SummaryActivity"
+            android:name=".MainContent.SummaryActivity"
             android:label="Personal Consumption Summary" />
         <activity
-            android:name=".Main_Content.CalculateActivity"
+            android:name=".MainContent.CalculateActivity"
             android:label="Calculate" />
         <activity
-            android:name=".Main_Content.RecordActivity"
-            android:parentActivityName=".Main_Content.MainActivity" />
+            android:name=".MainContent.RecordActivity"
+            android:parentActivityName=".MainContent.MainActivity" />
         <activity
             android:name=".LoginActivity"
             android:label="LoginActivity">
@@ -34,11 +34,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Main_Content.MainActivity"
+            android:name=".MainContent.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Side_Menu.ProfileActivity" />
-        <activity android:name=".Side_Menu.EditActivity" />
+        <activity android:name=".SideMenu.ProfileActivity" />
+        <activity android:name=".SideMenu.EditActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -50,7 +50,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".Side_Menu.GroupActivity"></activity>
+        <activity android:name=".SideMenu.GroupActivity"></activity>
     </application>
 
 </manifest>

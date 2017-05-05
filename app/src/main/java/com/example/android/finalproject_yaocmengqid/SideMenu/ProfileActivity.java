@@ -1,4 +1,4 @@
-package com.example.android.finalproject_yaocmengqid.Side_Menu;
+package com.example.android.finalproject_yaocmengqid.SideMenu;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.android.finalproject_yaocmengqid.R;
-import com.example.android.finalproject_yaocmengqid.Side_Menu.EditActivity;
 
 public class ProfileActivity extends AppCompatActivity {
 

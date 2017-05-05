@@ -1,4 +1,4 @@
-package com.example.android.finalproject_yaocmengqid.Side_Menu;
+package com.example.android.finalproject_yaocmengqid.SideMenu;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

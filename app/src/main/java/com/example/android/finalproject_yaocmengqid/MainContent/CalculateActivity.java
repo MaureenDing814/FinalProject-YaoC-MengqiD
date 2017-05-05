@@ -1,4 +1,4 @@
-package com.example.android.finalproject_yaocmengqid.Main_Content;
+package com.example.android.finalproject_yaocmengqid.MainContent;
 
 import android.app.Activity;
 import android.content.Intent;

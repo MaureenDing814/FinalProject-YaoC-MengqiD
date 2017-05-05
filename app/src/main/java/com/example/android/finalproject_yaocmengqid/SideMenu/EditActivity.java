@@ -1,4 +1,4 @@
-package com.example.android.finalproject_yaocmengqid.Side_Menu;
+package com.example.android.finalproject_yaocmengqid.SideMenu;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -71,6 +71,12 @@ public class EditActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser userAuth = firebaseAuth.getCurrentUser();
                 if (userAuth != null) {
+                    /*user = new People(userAuth.getUid());
+                    ((EditText)findViewById(R.id.editText_username)).setText(user.getName());
+                    Picasso.with(EditActivity.this).load(user.getProfilePicture())
+                            .resize(imageView.getWidth(),imageView.getHeight())
+                            .centerInside()
+                            .into(imageView);*/
 
                     mStorageRef = FirebaseStorage.getInstance().getReference(userAuth.getUid());
                     //((EditText)findViewById(R.id.editText_username)).setText(user.getDisplayName());
@@ -246,8 +252,7 @@ public class EditActivity extends AppCompatActivity {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Toast.makeText(EditActivity.this, "Profile picture upload successful!", Toast.LENGTH_SHORT).show();
                             // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                            @SuppressWarnings("VisibleForTests")
-                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
                         }
                     });
         }
