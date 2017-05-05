@@ -1,4 +1,4 @@
-package com.example.android.finalproject_yaocmengqid.Main_Content;
+package com.example.android.finalproject_yaocmengqid.MainContent;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -17,14 +17,20 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.android.finalproject_yaocmengqid.Expense;
 import com.example.android.finalproject_yaocmengqid.LoginActivity;
+import com.example.android.finalproject_yaocmengqid.People;
 import com.example.android.finalproject_yaocmengqid.R;
-import com.example.android.finalproject_yaocmengqid.Side_Menu.EditActivity;
-import com.example.android.finalproject_yaocmengqid.Side_Menu.GroupActivity;
+import com.example.android.finalproject_yaocmengqid.SideMenu.EditActivity;
+import com.example.android.finalproject_yaocmengqid.SideMenu.GroupActivity;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -35,10 +41,11 @@ public class MainActivity extends AppCompatActivity
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference mExpensesRef;
     private String TAG = "LoginActivity";
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    //private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     ArrayList<Expense> expenses;
@@ -46,7 +53,29 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+                // ...
+            }
+        };
+
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -69,26 +98,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                }
-                // ...
-            }
-        };
-
         expenses = new ArrayList<Expense>();
         mRecyclerView = (RecyclerView) findViewById(R.id.my_mainrecycler_view);
 
@@ -101,7 +110,31 @@ public class MainActivity extends AppCompatActivity
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new MainAdapter(expenses);
+        //mAdapter = new MainAdapter(expenses);
+        //mRecyclerView.setAdapter(mAdapter);
+
+        mExpensesRef = FirebaseDatabase.getInstance().getReference("expenses");
+        FirebaseRecyclerAdapter<Expense, ExpenseViewHolder> mAdapter = new FirebaseRecyclerAdapter<Expense, ExpenseViewHolder>(
+                Expense.class,
+                R.layout.main_item,
+                ExpenseViewHolder.class,
+                mExpensesRef
+        ) {
+            @Override
+            protected void populateViewHolder(ExpenseViewHolder holder, Expense model, int position) {
+                holder.mName.setText(model.getExpenseType());
+                holder.mDate.setText(model.getDate());
+                holder.mMoney.setText(model.getDate());
+                ArrayList<People> payers = model.getPayers();
+                String payerString = "";
+                for (People people : payers) {
+                    payerString += people.getName() + " ";
+                }
+                holder.mReceiver.setText("Paid by + " + payerString);
+
+                holder.mIcon.setImageResource(R.drawable.common_full_open_on_phone);
+            }
+        };
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -193,5 +226,24 @@ public class MainActivity extends AppCompatActivity
         startActivity(new Intent(this, CalculateActivity.class));
     }
 
+    public static class ExpenseViewHolder extends RecyclerView.ViewHolder {
+        // each data item is just a string in this case
+        public ImageView mIcon;
+        public TextView mName;
+        public TextView mDate;
+        public TextView mMoney;
+        public TextView mReceiver;
+        public View myView;
+
+        public ExpenseViewHolder(TextView v) {
+            super(v);
+            mIcon = (ImageView) v.findViewById(R.id.icon);
+            mName = (TextView) v.findViewById(R.id.item_name);
+            mDate = (TextView) v.findViewById(R.id.date);
+            mMoney = (TextView) v.findViewById(R.id.money);
+            mReceiver = (TextView) v.findViewById(R.id.receiver_name);
+            myView = v;
+        }
+    }
 
 }
