@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="25dp"
-    tools:context="com.example.android.finalproject_yaocmengqid.EditActivity">
+    tools:context="com.example.android.finalproject_yaocmengqid.Side_Menu.EditActivity">
 
     <ImageView
         android:id="@+id/preview"

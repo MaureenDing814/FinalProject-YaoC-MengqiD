@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="25dp"
-    tools:context="com.example.android.finalproject_yaocmengqid.CalculateActivity">
+    tools:context="com.example.android.finalproject_yaocmengqid.Main_Content.CalculateActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

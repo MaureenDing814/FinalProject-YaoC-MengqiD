@@ -1,11 +1,12 @@
-package com.example.android.finalproject_yaocmengqid;
+package com.example.android.finalproject_yaocmengqid.Main_Content;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.DatePicker;
+
+import com.example.android.finalproject_yaocmengqid.R;
 
 public class RecordActivity extends AppCompatActivity
     implements DatePickerDialog.OnDateSetListener {

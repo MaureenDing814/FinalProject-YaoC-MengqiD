@@ -1,4 +1,4 @@
-package com.example.android.finalproject_yaocmengqid;
+package com.example.android.finalproject_yaocmengqid.Main_Content;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.example.android.finalproject_yaocmengqid.Plan;
+import com.example.android.finalproject_yaocmengqid.R;
 
 import java.util.ArrayList;
 

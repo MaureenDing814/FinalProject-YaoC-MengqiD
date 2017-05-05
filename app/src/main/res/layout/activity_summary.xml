@@ -9,7 +9,7 @@
     android:paddingRight="20dp"
     android:paddingTop="10dp"
     android:orientation="vertical"
-    tools:context="com.example.android.finalproject_yaocmengqid.SummaryActivity">
+    tools:context="com.example.android.finalproject_yaocmengqid.Main_Content.SummaryActivity">
 
     <ImageView
         android:layout_width="wrap_content"

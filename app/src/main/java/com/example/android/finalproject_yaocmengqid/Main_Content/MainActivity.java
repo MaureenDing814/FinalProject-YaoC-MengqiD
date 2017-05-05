@@ -1,6 +1,5 @@
-package com.example.android.finalproject_yaocmengqid;
+package com.example.android.finalproject_yaocmengqid.Main_Content;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +18,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.android.finalproject_yaocmengqid.Expense;
+import com.example.android.finalproject_yaocmengqid.LoginActivity;
+import com.example.android.finalproject_yaocmengqid.R;
+import com.example.android.finalproject_yaocmengqid.Side_Menu.EditActivity;
+import com.example.android.finalproject_yaocmengqid.Side_Menu.GroupActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

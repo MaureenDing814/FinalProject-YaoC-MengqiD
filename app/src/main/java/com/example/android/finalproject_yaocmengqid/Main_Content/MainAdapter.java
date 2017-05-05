@@ -1,9 +1,15 @@
-package com.example.android.finalproject_yaocmengqid;
+package com.example.android.finalproject_yaocmengqid.Main_Content;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.android.finalproject_yaocmengqid.Expense;
+import com.example.android.finalproject_yaocmengqid.People;
+import com.example.android.finalproject_yaocmengqid.R;
 
 import java.util.ArrayList;
 
@@ -11,40 +17,46 @@ import java.util.ArrayList;
  * Created by Maureen_Ding on 4/24/17.
  */
 
-
-    public class CalculateAdapter extends RecyclerView.Adapter<CalculateAdapter.ViewHolder> {
-        private ArrayList<Plan> mDataset;
+    public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
+        public ArrayList<Expense> mDataset;
 
         // Provide a reference to the views for each data item
         // Complex data items may need more than one view per item, and
         // you provide access to all the views for a data item in a view holder
         public static class ViewHolder extends RecyclerView.ViewHolder {
             // each data item is just a string in this case
-            public TextView mAction;
+            public ImageView mIcon;
+            public TextView mName;
+            public TextView mDate;
             public TextView mMoney;
             public TextView mReceiver;
+            public View myView;
 
             public ViewHolder(TextView v) {
                 super(v);
-                mAction = (TextView)v.findViewById(R.id.action);
+                mIcon = (ImageView) v.findViewById(R.id.icon);
+                mName = (TextView)v.findViewById(R.id.item_name);
+                mDate = (TextView)v.findViewById(R.id.date);
                 mMoney = (TextView)v.findViewById(R.id.money);
                 mReceiver = (TextView)v.findViewById(R.id.receiver_name);
+                myView = v;
             }
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public CalculateAdapter(ArrayList<Plan> myDataset) {
+        public MainAdapter(ArrayList<Expense> myDataset) {
             mDataset = myDataset;
         }
 
         // Create new views (invoked by the layout manager)
         @Override
-        public CalculateAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                              int viewType) {
+        public MainAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                       int viewType) {
             // create a new view
             TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.calculate_item, parent, false);
+                    .inflate(R.layout.main_item, parent, false);
             // set the view's size, margins, paddings and layout parameters
+
             ViewHolder vh = new ViewHolder(v);
             return vh;
         }
@@ -54,9 +66,18 @@ import java.util.ArrayList;
         public void onBindViewHolder(ViewHolder holder, int position) {
             // - get element from your dataset at this position
             // - replace the contents of the view with that element
-            holder.mAction.setText(mDataset.get(position).getAction());
-            holder.mMoney.setText(mDataset.get(position).getMoney());
-            holder.mReceiver.setText(mDataset.get(position).getReceiver());
+            holder.mName.setText(mDataset.get(position).getExpenseType());
+            holder.mDate.setText(mDataset.get(position).getDate());
+            holder.mMoney.setText(mDataset.get(position).getDate());
+            ArrayList<People> payers = mDataset.get(position).getPayers();
+            String payerString = "";
+            for (People people : payers) {
+                payerString += people.getName() + " ";
+            }
+            holder.mReceiver.setText("Paid by + " + payerString);
+
+
+            holder.mIcon.setImageResource(R.drawable.common_full_open_on_phone);
 
         }
 
@@ -65,5 +86,8 @@ import java.util.ArrayList;
         public int getItemCount() {
             return mDataset.size();
         }
-    }
 
+        public void groupSummary(View view){
+
+        }
+    }
