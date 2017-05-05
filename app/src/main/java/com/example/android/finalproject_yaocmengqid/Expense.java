@@ -1,5 +1,7 @@
 package com.example.android.finalproject_yaocmengqid;
 
+import com.example.android.finalproject_yaocmengqid.Main_Content.People;
+
 import java.util.ArrayList;
 
 /**

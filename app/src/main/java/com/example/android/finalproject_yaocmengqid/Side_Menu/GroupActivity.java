@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.android.finalproject_yaocmengqid.People;
+import com.example.android.finalproject_yaocmengqid.Main_Content.People;
 import com.example.android.finalproject_yaocmengqid.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

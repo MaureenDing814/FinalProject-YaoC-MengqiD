@@ -50,7 +50,9 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".Side_Menu.GroupActivity"></activity>
+        <activity android:name=".Side_Menu.GroupActivity" />
+        <activity android:name=".Main_Content.ManageGroupActivity" />
+        <activity android:name=".Main_Content.ManageGroupAdapter"></activity>
     </application>
 
 </manifest>
