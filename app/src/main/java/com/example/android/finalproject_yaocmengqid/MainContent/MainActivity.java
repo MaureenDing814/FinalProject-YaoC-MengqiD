@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity
     //private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    ArrayList<Expense> expenses;
+    //ArrayList<Expense> expenses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        expenses = new ArrayList<Expense>();
+//        expenses = new ArrayList<Expense>();
         mRecyclerView = (RecyclerView) findViewById(R.id.my_mainrecycler_view);
 
         // use this setting to improve performance if you know that changes
@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity
         startActivity(new Intent(this, CalculateActivity.class));
     }
 
-    public static class ExpenseViewHolder extends RecyclerView.ViewHolder {
+    private static class ExpenseViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public ImageView mIcon;
         public TextView mName;

@@ -58,7 +58,7 @@
 
         <activity
             android:name=".SideMenu.GroupActivity"
-            android:parentActivityName=".MainContent.MainActivity">
+            android:parentActivityName=".MainContent.ManageGroupActivity">
         </activity>
         <activity android:name=".MainContent.ManageGroupActivity"
             android:parentActivityName=".MainContent.MainActivity" />
