@@ -34,6 +34,7 @@ public class ChoosePeopleActivity extends AppCompatActivity {
     private ChooseAdapter mAdapter;
     private ArrayList<People> mDataset;
     private ArrayList<Boolean> isChecked;
+    private ArrayList<String> mKeys;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +58,9 @@ public class ChoosePeopleActivity extends AppCompatActivity {
                     mRecyclerview.setHasFixedSize(true);
                     mLayoutManager = new LinearLayoutManager(ChoosePeopleActivity.this);
                     mRecyclerview.setLayoutManager(mLayoutManager);
-                    mDataset = new ArrayList<People>();
-                    isChecked = new ArrayList<Boolean>();
+                    mDataset = new ArrayList<>();
+                    isChecked = new ArrayList<>();
+                    mKeys = new ArrayList<>();
                     mAdapter = new ChooseAdapter(mDataset,isChecked);
                     mRecyclerview.setAdapter(mAdapter);
 
@@ -68,6 +70,7 @@ public class ChoosePeopleActivity extends AppCompatActivity {
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                             People people = dataSnapshot.getValue(People.class);
                             Log.v("DataSnapshot", people.toString());
+                            mKeys.add(dataSnapshot.getKey());
                             mDataset.add(people);
                             if (selectedEmails.contains(people.getEmail())) {
                                 isChecked.add(true);
@@ -107,11 +110,15 @@ public class ChoosePeopleActivity extends AppCompatActivity {
     public void selectMember(View view) {
         Intent data = new Intent();
         ArrayList<People> selected = new ArrayList<>();
+        ArrayList<String> keys = new ArrayList<>();
         for (int i = 0; i < mDataset.size(); ++ i) {
-            if (isChecked.get(i))
+            if (isChecked.get(i)) {
                 selected.add(mDataset.get(i));
+                keys.add(mKeys.get(i));
+            }
         }
         data.putExtra("selected", selected);
+        data.putExtra("keys", keys);
         setResult(0, data);
         finish();
     }

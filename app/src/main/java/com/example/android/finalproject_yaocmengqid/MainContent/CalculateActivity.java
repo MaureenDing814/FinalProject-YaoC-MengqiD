@@ -8,8 +8,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.example.android.finalproject_yaocmengqid.Expense;
+import com.example.android.finalproject_yaocmengqid.People;
 import com.example.android.finalproject_yaocmengqid.Plan;
 import com.example.android.finalproject_yaocmengqid.R;
+import com.example.android.finalproject_yaocmengqid.Utils.CalculateAdapter;
 
 import java.util.ArrayList;
 
@@ -19,12 +22,20 @@ public class CalculateActivity extends Activity {
     private RecyclerView.LayoutManager mLayoutManager;
     ArrayList <Plan> results;
 
+    ArrayList<People> members;
+    ArrayList<Expense> records;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculate);
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         results = new ArrayList<Plan>();
+
+        if (!getIntent().hasExtra("members"))
+            finish();
+
+        members = (ArrayList<People>)getIntent().getSerializableExtra("members");
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -50,5 +61,4 @@ public class CalculateActivity extends Activity {
         }
 
     }
-
 }

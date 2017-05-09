@@ -1,6 +1,8 @@
 package com.example.android.finalproject_yaocmengqid;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,13 +12,13 @@ import java.util.Date;
  */
 
 public class Expense implements Serializable{
-    double amount;
+    String amount;
     Date date;
     String expenseType;
     ArrayList<People> payers;
     ArrayList<People> members;
 
-    public Expense(double amount, Date date, String expenseType, ArrayList<People> payers, ArrayList<People> members) {
+    public Expense(String amount, Date date, String expenseType, ArrayList<People> payers, ArrayList<People> members) {
         this.amount = amount;
         this.date = date;
         this.expenseType = expenseType;
@@ -27,12 +29,11 @@ public class Expense implements Serializable{
     public Expense() {
 
     }
-
-    public double getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 

@@ -1,4 +1,4 @@
-package com.example.android.finalproject_yaocmengqid;
+package com.example.android.finalproject_yaocmengqid.MainContent;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.android.finalproject_yaocmengqid.MainContent.MainActivity;
+import com.example.android.finalproject_yaocmengqid.People;
+import com.example.android.finalproject_yaocmengqid.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -94,6 +95,9 @@ public class LoginActivity extends AppCompatActivity {
                         FirebaseUser newUser = task.getResult().getUser();
                         DatabaseReference mRef = FirebaseDatabase.getInstance().getReference("users").child(newUser.getUid());
                         mRef.child("email").setValue(email);
+
+                        mRef = FirebaseDatabase.getInstance().getReference("people").child(newUser.getUid());
+                        mRef.push().setValue(new People("", email));
                     }
                 });
     }

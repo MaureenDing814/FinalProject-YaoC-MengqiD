@@ -1,6 +1,5 @@
 package com.example.android.finalproject_yaocmengqid.SideMenu;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,8 +8,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.android.finalproject_yaocmengqid.LoginActivity;
-import com.example.android.finalproject_yaocmengqid.MainContent.MainActivity;
 import com.example.android.finalproject_yaocmengqid.People;
 import com.example.android.finalproject_yaocmengqid.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,10 +55,8 @@ public class GroupActivity extends AppCompatActivity {
 
         String peopleName = name.getText().toString();
         String peopleEmail = email.getText().toString();
-        double pay = 0;
-        double loan = 0;
 
-        People people = new People(peopleName, peopleEmail, pay, loan);
+        People people = new People(peopleName, peopleEmail);
 
         peopleRef.push().setValue(people);
 

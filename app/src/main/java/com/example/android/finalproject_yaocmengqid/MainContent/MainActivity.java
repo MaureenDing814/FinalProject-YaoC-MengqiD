@@ -21,16 +21,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.finalproject_yaocmengqid.Expense;
-import com.example.android.finalproject_yaocmengqid.LoginActivity;
 import com.example.android.finalproject_yaocmengqid.People;
 import com.example.android.finalproject_yaocmengqid.R;
-import com.example.android.finalproject_yaocmengqid.SideMenu.GroupActivity;
 import com.example.android.finalproject_yaocmengqid.SideMenu.ProfileActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity
                     mLayoutManager = new LinearLayoutManager(MainActivity.this);
                     mRecyclerView.setLayoutManager(mLayoutManager);
 
-                    mExpensesRef = FirebaseDatabase.getInstance().getReference(user.getUid()).child("expenses");
+                    mExpensesRef = FirebaseDatabase.getInstance().getReference("expenses").child(user.getUid());
                     FirebaseRecyclerAdapter<Expense, ExpenseViewHolder> mAdapter = new FirebaseRecyclerAdapter<Expense, ExpenseViewHolder>(
                             Expense.class,
                             R.layout.main_item,
@@ -106,7 +108,7 @@ public class MainActivity extends AppCompatActivity
                         protected void populateViewHolder(ExpenseViewHolder holder, Expense model, int position) {
                             holder.mName.setText(model.getExpenseType());
                             holder.mDate.setText(model.getDateString());
-                            holder.mMoney.setText(Double.toString(model.getAmount()));
+                            holder.mMoney.setText(model.getAmount());
                             ArrayList<People> payers = model.getPayers();
                             String payerString = "";
                             for (People people : payers) {
@@ -118,6 +120,55 @@ public class MainActivity extends AppCompatActivity
                         }
                     };
                     mRecyclerView.setAdapter(mAdapter);
+
+                    DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
+                    mDatabaseRef.child("name").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String name = dataSnapshot.getValue(String.class);
+                            if (name != null) {
+                                ((TextView)findViewById(R.id.nav_text1)).setText(name);
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+
+                    mDatabaseRef.child("email").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String email = dataSnapshot.getValue(String.class);
+                            if (email != null) {
+                                ((TextView)findViewById(R.id.nav_text2)).setText(email);
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+
+                    mDatabaseRef.child("profilePhoto").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String url = dataSnapshot.getValue(String.class);
+                            if (url != null) {
+                                ImageView imageView = (ImageView) findViewById(R.id.nav_image);
+                                Picasso.with(MainActivity.this).load(Uri.parse(url))
+                                        .resize(imageView.getWidth(), imageView.getHeight())
+                                        .centerInside()
+                                        .into(imageView);
+                                ImageView avatar = (ImageView) findViewById(R.id.avatar);
+                                Picasso.with(MainActivity.this).load(Uri.parse(url))
+                                        .resize(avatar.getWidth(), avatar.getHeight())
+                                        .centerInside()
+                                        .into(avatar);
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
 
                 } else {
                     // User is signed out

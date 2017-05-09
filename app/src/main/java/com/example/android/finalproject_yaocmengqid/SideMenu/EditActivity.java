@@ -18,12 +18,11 @@ import android.widget.Toast;
 
 import com.example.android.finalproject_yaocmengqid.R;
 import com.example.android.finalproject_yaocmengqid.Utils.CircularTransform;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -50,7 +49,8 @@ public class EditActivity extends AppCompatActivity {
     private File photoFile;
     private StorageReference mStorageRef;
     private FirebaseUser userAuth;
-    private DatabaseReference mDatabaseRef;
+    private DatabaseReference mUserRef;
+    private DatabaseReference mPeopleRef;
     //private People user;
     private Uri fileToUpload;
     private String TAG = "EditActivity";
@@ -71,32 +71,37 @@ public class EditActivity extends AppCompatActivity {
                 FirebaseUser userAuth = firebaseAuth.getCurrentUser();
                 if (userAuth != null) {
                     mStorageRef = FirebaseStorage.getInstance().getReference(userAuth.getUid());
-                    mDatabaseRef = FirebaseDatabase.getInstance().getReference("users").child(userAuth.getUid());
-                    //((EditText)findViewById(R.id.editText_username)).setText(user.getDisplayName());
-                    // Fetch profile picture
-                    /*try {
-                        final File localFile = File.createTempFile("images", "jpg");
-                        mStorageRef.child("images/upload.jpg").getFile(localFile)
-                                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                        // Successfully downloaded data to local file
-                                        Picasso.with(EditActivity.this).load(localFile)
-                                                .resize(imageView.getWidth(),imageView.getHeight())
-                                                .centerInside()
-                                                .into(imageView);
-                                        // ...
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception exception) {
-                            }
-                        });
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }*/
+                    mUserRef = FirebaseDatabase.getInstance().getReference("users").child(userAuth.getUid());
+                    FirebaseDatabase.getInstance().getReference("people").child(userAuth.getUid())
+                            .orderByKey().limitToFirst(1).addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            mPeopleRef = dataSnapshot.getRef();
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
                     // Display Picture
-                    mDatabaseRef.child("profilePhoto").addValueEventListener(new ValueEventListener() {
+                    mUserRef.child("profilePhoto").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String url = dataSnapshot.getValue(String.class);
@@ -107,7 +112,7 @@ public class EditActivity extends AppCompatActivity {
                                         .into(imageView);
                                 Log.d(TAG, "Profile picture URL is: " + url);
                             }
-                            mDatabaseRef.child("profilePhoto").removeEventListener(this);
+                            mUserRef.child("profilePhoto").removeEventListener(this);
                         }
 
                         @Override
@@ -117,13 +122,13 @@ public class EditActivity extends AppCompatActivity {
                         }
                     });
                     // Get display name
-                    mDatabaseRef.child("name").addValueEventListener(new ValueEventListener() {
+                    mUserRef.child("name").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String value = dataSnapshot.getValue(String.class);
                             ((EditText)findViewById(R.id.editText_username)).setText(value);
                             Log.d(TAG, "User name is: " + value);
-                            mDatabaseRef.child("name").removeEventListener(this);
+                            mUserRef.child("name").removeEventListener(this);
                         }
 
                         @Override
@@ -240,16 +245,8 @@ public class EditActivity extends AppCompatActivity {
             user.setProfilePicture(fileToUpload);
         }*/
 
-        mDatabaseRef.child("name").setValue(newName).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(EditActivity.this, "Update profile successfully!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(EditActivity.this, "Update profile failed!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        mUserRef.child("name").setValue(newName);
+        mPeopleRef.child("name").setValue(newName);
 
         if (fileToUpload != null) {
             StorageReference riversRef = mStorageRef.child("images/upload.jpg");
@@ -263,10 +260,9 @@ public class EditActivity extends AppCompatActivity {
                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(EditActivity.this, "Profile picture upload successful!", Toast.LENGTH_SHORT).show();
-                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                            Toast.makeText(EditActivity.this, "Update profile successfully!", Toast.LENGTH_SHORT).show();
                             @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                            mDatabaseRef.child("profilePhoto").setValue(downloadUrl.toString());
+                            mUserRef.child("profilePhoto").setValue(downloadUrl.toString());
                         }
                     });
         }
