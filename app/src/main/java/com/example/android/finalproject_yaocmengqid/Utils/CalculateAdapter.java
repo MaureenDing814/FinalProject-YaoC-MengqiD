@@ -2,7 +2,9 @@ package com.example.android.finalproject_yaocmengqid.Utils;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.android.finalproject_yaocmengqid.Plan;
@@ -27,7 +29,7 @@ public class CalculateAdapter extends RecyclerView.Adapter<CalculateAdapter.View
         public TextView mMoney;
         public TextView mReceiver;
 
-        public ViewHolder(TextView v) {
+        public ViewHolder(View v) {
             super(v);
             mAction = (TextView) v.findViewById(R.id.action);
             mMoney = (TextView) v.findViewById(R.id.money);
@@ -45,7 +47,7 @@ public class CalculateAdapter extends RecyclerView.Adapter<CalculateAdapter.View
     public CalculateAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                           int viewType) {
         // create a new view
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
+        LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.calculate_item, parent, false);
         // set the view's size, margins, paddings and layout parameters
         ViewHolder vh = new ViewHolder(v);

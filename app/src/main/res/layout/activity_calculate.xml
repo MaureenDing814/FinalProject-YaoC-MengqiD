@@ -13,8 +13,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -29,6 +29,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/cal_pay_recv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="You still need to pay"
@@ -52,7 +53,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="3"
         android:layout_gravity="center_horizontal"
         android:orientation="vertical">
         <!-- A RecyclerView with some commonly used attributes -->
@@ -61,6 +63,7 @@
             android:scrollbars="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="6dp"
             android:layout_marginBottom="10dp"/>
 
     </LinearLayout>

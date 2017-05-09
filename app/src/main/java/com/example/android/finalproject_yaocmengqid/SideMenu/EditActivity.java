@@ -101,7 +101,7 @@ public class EditActivity extends AppCompatActivity {
                     });
 
                     // Display Picture
-                    mUserRef.child("profilePhoto").addValueEventListener(new ValueEventListener() {
+                    mUserRef.child("profilePhoto").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String url = dataSnapshot.getValue(String.class);
@@ -112,7 +112,6 @@ public class EditActivity extends AppCompatActivity {
                                         .into(imageView);
                                 Log.d(TAG, "Profile picture URL is: " + url);
                             }
-                            mUserRef.child("profilePhoto").removeEventListener(this);
                         }
 
                         @Override
@@ -122,13 +121,12 @@ public class EditActivity extends AppCompatActivity {
                         }
                     });
                     // Get display name
-                    mUserRef.child("name").addValueEventListener(new ValueEventListener() {
+                    mUserRef.child("name").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String value = dataSnapshot.getValue(String.class);
                             ((EditText)findViewById(R.id.editText_username)).setText(value);
                             Log.d(TAG, "User name is: " + value);
-                            mUserRef.child("name").removeEventListener(this);
                         }
 
                         @Override
