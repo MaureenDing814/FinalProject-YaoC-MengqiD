@@ -45,34 +45,11 @@ public class MainActivity extends AppCompatActivity
     private String TAG = "LoginActivity";
 
     private RecyclerView mRecyclerView;
-    //private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
-    //ArrayList<Expense> expenses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                }
-                // ...
-            }
-        };
 
         setContentView(R.layout.activity_main);
 
@@ -98,44 +75,59 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-//        expenses = new ArrayList<Expense>();
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_mainrecycler_view);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        // specify an adapter (see also next example)
-        //mAdapter = new MainAdapter(expenses);
-        //mRecyclerView.setAdapter(mAdapter);
-
-        mExpensesRef = FirebaseDatabase.getInstance().getReference("expenses");
-        FirebaseRecyclerAdapter<Expense, ExpenseViewHolder> mAdapter = new FirebaseRecyclerAdapter<Expense, ExpenseViewHolder>(
-                Expense.class,
-                R.layout.main_item,
-                ExpenseViewHolder.class,
-                mExpensesRef
-        ) {
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
-            protected void populateViewHolder(ExpenseViewHolder holder, Expense model, int position) {
-                holder.mName.setText(model.getExpenseType());
-                holder.mDate.setText(model.getDate());
-                holder.mMoney.setText(model.getDate());
-                ArrayList<People> payers = model.getPayers();
-                String payerString = "";
-                for (People people : payers) {
-                    payerString += people.getName() + " ";
-                }
-                holder.mReceiver.setText("Paid by + " + payerString);
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                holder.mIcon.setImageResource(R.drawable.common_full_open_on_phone);
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+
+                    mRecyclerView = (RecyclerView) findViewById(R.id.my_mainrecycler_view);
+
+                    // use this setting to improve performance if you know that changes
+                    // in content do not change the layout size of the RecyclerView
+                    mRecyclerView.setHasFixedSize(true);
+
+                    // use a linear layout manager
+                    mLayoutManager = new LinearLayoutManager(MainActivity.this);
+                    mRecyclerView.setLayoutManager(mLayoutManager);
+
+                    mExpensesRef = FirebaseDatabase.getInstance().getReference(user.getUid()).child("expenses");
+                    FirebaseRecyclerAdapter<Expense, ExpenseViewHolder> mAdapter = new FirebaseRecyclerAdapter<Expense, ExpenseViewHolder>(
+                            Expense.class,
+                            R.layout.main_item,
+                            ExpenseViewHolder.class,
+                            mExpensesRef
+                    ) {
+                        @Override
+                        protected void populateViewHolder(ExpenseViewHolder holder, Expense model, int position) {
+                            holder.mName.setText(model.getExpenseType());
+                            holder.mDate.setText(model.getDateString());
+                            holder.mMoney.setText(Double.toString(model.getAmount()));
+                            ArrayList<People> payers = model.getPayers();
+                            String payerString = "";
+                            for (People people : payers) {
+                                payerString += people.getName() + " ";
+                            }
+                            holder.mReceiver.setText("Paid by: " + payerString);
+
+                            holder.mIcon.setImageResource(R.drawable.common_full_open_on_phone);
+                        }
+                    };
+                    mRecyclerView.setAdapter(mAdapter);
+
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+                // ...
             }
         };
-        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
@@ -182,6 +174,10 @@ public class MainActivity extends AppCompatActivity
         }*/
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void manageGroup(View view) {
+        startActivity(new Intent(this, ManageGroupActivity.class));
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -235,7 +231,7 @@ public class MainActivity extends AppCompatActivity
         public TextView mReceiver;
         public View myView;
 
-        public ExpenseViewHolder(TextView v) {
+        public ExpenseViewHolder(View v) {
             super(v);
             mIcon = (ImageView) v.findViewById(R.id.icon);
             mName = (TextView) v.findViewById(R.id.item_name);

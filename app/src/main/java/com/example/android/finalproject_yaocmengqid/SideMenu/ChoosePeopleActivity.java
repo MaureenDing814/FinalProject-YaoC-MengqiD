@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class ChoosePeopleActivity extends AppCompatActivity {
 
@@ -38,6 +39,13 @@ public class ChoosePeopleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_people);
+
+        final HashSet<String> selectedEmails = new HashSet<>();
+        if (getIntent().hasExtra("selected")) {
+            ArrayList<People> selected = (ArrayList<People>) getIntent().getSerializableExtra("selected");
+            for (People people : selected)
+                selectedEmails.add(people.getEmail());
+        }
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
@@ -61,8 +69,11 @@ public class ChoosePeopleActivity extends AppCompatActivity {
                             People people = dataSnapshot.getValue(People.class);
                             Log.v("DataSnapshot", people.toString());
                             mDataset.add(people);
-                            isChecked.add(false);
-
+                            if (selectedEmails.contains(people.getEmail())) {
+                                isChecked.add(true);
+                            } else {
+                                isChecked.add(false);
+                            }
                             mAdapter.notifyDataSetChanged();
 //                display.setText(results);
                         }

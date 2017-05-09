@@ -31,6 +31,7 @@
                 android:textSize="16sp" />
 
             <Button
+                android:id="@+id/dateButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="showDatePickerDialog"
@@ -54,13 +55,15 @@
                 android:id="@+id/food_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="food" />
+                android:text="food"
+                android:onClick="pickType"/>
 
             <RadioButton
                 android:id="@+id/trans_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="transportation" />
+                android:text="transportation"
+                android:onClick="pickType" />
         </TableRow>
 
         <TableRow>
@@ -69,13 +72,15 @@
                 android:id="@+id/entertainment_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="entertainment" />
+                android:text="entertainment"
+                android:onClick="pickType" />
 
             <RadioButton
                 android:id="@+id/shelter_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="shelter" />
+                android:text="shelter"
+                android:onClick="pickType" />
         </TableRow>
 
         <TableRow>
@@ -84,7 +89,8 @@
                 android:id="@+id/others_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="others" />
+                android:text="others"
+                android:onClick="pickType" />
 
         </TableRow>
 
@@ -112,7 +118,9 @@
                 android:textSize="16sp" />
         </TableRow>
 
-        <TableRow android:layout_marginBottom="20dp">
+        <TableRow
+            android:layout_marginBottom="20dp"
+            android:onClick="choosePayer">
 
             <TextView
                 android:id="@+id/payer"
@@ -131,6 +139,7 @@
         </TableRow>
 
         <TableRow
+            android:layout_marginBottom="10dp"
             android:onClick="chooseMember">
 
             <TextView
@@ -146,7 +155,9 @@
                 android:textSize="16sp" />
         </TableRow>
 
-        <TableRow android:layout_marginBottom="20dp">
+        <TableRow
+            android:layout_marginBottom="20dp"
+            android:onClick="chooseMember">
 
             <TextView
                 android:id="@+id/member"
