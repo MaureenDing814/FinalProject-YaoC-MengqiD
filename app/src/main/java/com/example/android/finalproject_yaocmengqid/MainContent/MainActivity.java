@@ -115,8 +115,19 @@ public class MainActivity extends AppCompatActivity
                                 payerString += people.getName() + " ";
                             }
                             holder.mReceiver.setText("Paid by: " + payerString);
+                            if(model.getExpenseType().equals("food")){
+                                holder.mIcon.setImageResource(R.drawable.food_icon);
+                            }else if(model.getExpenseType().equals("transportation")){
+                                holder.mIcon.setImageResource(R.drawable.trans_icon);
+                            }else if(model.getExpenseType().equals("entertainment")){
+                                holder.mIcon.setImageResource(R.drawable.ticket_icon);
+                            }else if(model.getExpenseType().equals("shelter")){
+                                holder.mIcon.setImageResource(R.drawable.house_icon);
+                            }else if(model.getExpenseType().equals("others")){
+                                holder.mIcon.setImageResource(R.drawable.other_icon);
+                            }
 
-                            holder.mIcon.setImageResource(R.drawable.common_full_open_on_phone);
+
                         }
                     };
                     mRecyclerView.setAdapter(mAdapter);
