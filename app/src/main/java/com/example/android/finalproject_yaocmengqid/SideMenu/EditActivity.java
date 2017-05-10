@@ -14,8 +14,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.finalproject_yaocmengqid.MainContent.MainActivity;
 import com.example.android.finalproject_yaocmengqid.R;
 import com.example.android.finalproject_yaocmengqid.Utils.CircularTransform;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -264,6 +266,8 @@ public class EditActivity extends AppCompatActivity {
                         }
                     });
         }
+
+
 
         finish();
     }
