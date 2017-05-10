@@ -34,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import static com.example.android.finalproject_yaocmengqid.R.id.help;
@@ -178,6 +179,40 @@ public class MainActivity extends AppCompatActivity
                         }
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+
+                    FirebaseDatabase.getInstance().getReference("people").child(user.getUid())
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            ArrayList<People> members = new ArrayList<People>();
+                            //People people = dataSnapshot.getValue(People.class);
+                            for (DataSnapshot child : dataSnapshot.getChildren())
+                                members.add(child.getValue(People.class));
+                            BigDecimal pay = new BigDecimal(members.get(0).getPay());
+                            BigDecimal expense = new BigDecimal(members.get(0).getExpense());
+                            BigDecimal delta = pay.subtract(expense);
+                            int mark = delta.compareTo(BigDecimal.ZERO);
+                            if (mark == 1) {
+                                ((TextView) findViewById(R.id.money_string_main)).setText("You still need to receive");
+                                ((TextView) findViewById(R.id.money_main)).setText("$ " + delta.setScale(2).toString());
+                            } else if (mark == -1) {
+                                ((TextView) findViewById(R.id.money_string_main)).setText("You still need to pay");
+                                ((TextView) findViewById(R.id.money_main)).setText("$ " + delta.negate().setScale(2).toString());
+                            }
+                            ((TextView) findViewById(R.id.my_expense)).setText(expense.toString());
+
+                            for (int i = 1; i < members.size(); ++ i)
+                                expense = expense.add(new BigDecimal(members.get(i).getExpense()));
+
+                            ((TextView) findViewById(R.id.total_expense)).setText(expense.toString());
+                            ((TextView) findViewById(R.id.group_number)).setText("" + members.size());
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
                         }
                     });
 
