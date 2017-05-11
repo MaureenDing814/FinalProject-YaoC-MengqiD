@@ -2,18 +2,31 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="20dp"
+    >
+
+    <TableRow>
+        <TextView
+            android:layout_height="30dp"
+            android:layout_width="500dp"
+            android:background="#a2d9d4"/>
+    </TableRow>
 
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:stretchColumns="1">
+        android:stretchColumns="1"
+        android:padding="5dp">
+
+
 
         <TableRow>
 
             <TextView
                 android:layout_column="1"
-                android:text="Total Amount: $"
+                android:text="Total Amount:               $"
+                android:textStyle="bold"
+                android:textColor="#5cbeb6"
                 android:textSize="16sp" />
 
             <EditText
@@ -28,7 +41,9 @@
             <TextView
                 android:layout_column="1"
                 android:text="Date"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#5cbeb6"/>
 
             <Button
                 android:id="@+id/dateButton"
@@ -101,7 +116,8 @@
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:stretchColumns="0">
+        android:stretchColumns="0"
+        android:padding="5dp">
 
         <TableRow
             android:layout_marginBottom="10dp"
@@ -110,7 +126,9 @@
             <TextView
             android:layout_column="0"
             android:text="Payer"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#5cbeb6"/>
 
             <TextView
                 android:layout_column="0"
@@ -120,7 +138,7 @@
         </TableRow>
 
         <TableRow
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="15dp"
             android:onClick="choosePayer">
 
             <TextView
@@ -147,6 +165,8 @@
                 android:layout_column="0"
                 android:layout_marginBottom="10dp"
                 android:text="Members"
+                android:textStyle="bold"
+                android:textColor="#5cbeb6"
                 android:textSize="16sp" />
 
             <TextView
@@ -158,7 +178,7 @@
         </TableRow>
 
         <TableRow
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="15dp"
             android:onClick="chooseMember">
 
             <TextView
@@ -174,13 +194,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:text="took part in"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:layout_marginBottom="40dp"/>
         </TableRow>
     </TableLayout>
 
     <Button
         android:text="save"
-        android:onClick="saveExpense"/>
+        android:onClick="saveExpense" />
 </TableLayout>
 
 
