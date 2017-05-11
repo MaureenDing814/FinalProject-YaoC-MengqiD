@@ -22,7 +22,9 @@
         android:layout_height="wrap_content"
         android:stretchColumns="1">
 
-        <TableRow android:layout_marginBottom="15dp">
+        <TableRow
+            android:background="#80d9d2"
+            android:padding="10dp">
 
             <ImageView
                 android:id="@+id/avatar"
@@ -42,13 +44,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="25dp" />
+                    android:textSize="25sp"
+                    android:textColor="@android:color/white"/>
 
                 <TextView
                     android:id="@+id/money_string_main"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="You need to pay" />
+                    android:text="You need to pay"
+                    android:textColor="@android:color/white"/>
             </LinearLayout>
 
 
@@ -64,23 +68,34 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="0"
-                    android:textSize="25dp" />
+                    android:textSize="25sp"
+                    android:textColor="@android:color/white"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="manage group>>" />
+                    android:text="manage group>"
+                    android:layout_marginRight="20dp"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"/>
             </LinearLayout>
 
 
         </TableRow>
     </TableLayout>
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:textColor="@android:color/white"/>
 
     <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:stretchColumns="0,1">
+            android:stretchColumns="0,1"
+        android:padding="10dp"
+        android:background="#a2d9d4"
+        >
 
             <TableRow>
 
@@ -89,14 +104,16 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:text="My Total Expenses: "
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:textColor="@android:color/white"/>
 
                 <TextView
                     android:id="@+id/my_expense"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:textColor="@android:color/white"/>
 
             </TableRow>
 
@@ -108,14 +125,16 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:text="Group Total Expenses: "
-                    android:textSize="15dp" />
+                    android:textSize="15sp"
+                    android:textColor="@android:color/white"/>
 
                 <TextView
                     android:id="@+id/total_expense"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="15dp" />
+                    android:textSize="15sp"
+                    android:textColor="@android:color/white"/>
 
             </TableRow>
 
