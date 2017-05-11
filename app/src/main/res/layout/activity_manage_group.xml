@@ -17,7 +17,10 @@
         android:textSize="25sp"
         android:gravity="center"
         android:textStyle="bold"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="15dp"
+        android:background="#a2d9d4"
+        android:padding="10dp"
+        android:textColor="@android:color/white"/>
 
     <!-- A RecyclerView with some commonly used attributes -->
     <android.support.v7.widget.RecyclerView

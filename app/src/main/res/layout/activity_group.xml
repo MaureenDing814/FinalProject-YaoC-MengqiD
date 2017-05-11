@@ -18,7 +18,10 @@
         android:textSize="25sp"
         android:gravity="center"
         android:textStyle="bold"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:background="#a2d9d4"
+        android:padding="15dp"
+        android:textColor="@android:color/white"/>
 
     <EditText
         android:layout_width="match_parent"
