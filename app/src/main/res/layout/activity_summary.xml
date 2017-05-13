@@ -11,13 +11,18 @@
     android:orientation="vertical"
     tools:context="com.example.android.finalproject_yaocmengqid.MainContent.SummaryActivity">
 
-    <ImageView
+    <!--<ImageView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:src="@drawable/pie_chart"
         android:scaleType="centerInside"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="5dp"/>-->
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -124,35 +129,34 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginBottom="5dp"
-        android:layout_marginLeft="5dp">
+        android:layout_marginLeft="5dp"
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="60dp"
             android:layout_height="45dp"
-            android:src="@drawable/ticket_icon"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:src="@drawable/ticket_icon" />
 
         <TextView
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:text="Ticket"
-            android:textSize="18sp"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:text="Entertainment"
+            android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/entertainment_money"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="0.00"
-            android:textSize="18sp"
             android:layout_gravity="center_vertical"
+            android:layout_weight="1"
             android:gravity="center"
-            android:id="@+id/ticket_money"
-            />
+            android:text="0.00"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
@@ -173,7 +177,7 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="Other"
+            android:text="Others"
             android:textSize="18sp"
             android:layout_gravity="center_vertical"
             android:gravity="center"/>
@@ -191,27 +195,5 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp">
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="My Consumption"
-            android:textSize="12sp"
-            android:id="@+id/personal_consumption"/>
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="Group Consumption"
-            android:textSize="12sp"
-            android:id="@+id/group_consumption"/>
-
-    </LinearLayout>
 
 </LinearLayout>

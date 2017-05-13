@@ -2,22 +2,21 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    >
+    android:padding="20dp">
 
     <TableRow>
+
         <TextView
-            android:layout_height="30dp"
             android:layout_width="500dp"
-            android:background="#a2d9d4"/>
+            android:layout_height="30dp"
+            android:background="#a2d9d4" />
     </TableRow>
 
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:stretchColumns="1"
-        android:padding="5dp">
-
+        android:padding="5dp"
+        android:stretchColumns="1">
 
 
         <TableRow>
@@ -25,14 +24,14 @@
             <TextView
                 android:layout_column="1"
                 android:text="Total Amount:               $"
-                android:textStyle="bold"
                 android:textColor="#5cbeb6"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/billAmount"
-                android:inputType="numberDecimal"
-                android:hint="Please record the bill" />
+                android:hint="Please record the bill"
+                android:inputType="numberDecimal" />
 
         </TableRow>
 
@@ -41,9 +40,9 @@
             <TextView
                 android:layout_column="1"
                 android:text="Date"
+                android:textColor="#5cbeb6"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#5cbeb6"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/dateButton"
@@ -62,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:stretchColumns="0">
+        android:stretchColumns="0,1">
 
         <TableRow>
 
@@ -70,15 +69,15 @@
                 android:id="@+id/food_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="food"
-                android:onClick="pickType"/>
+                android:onClick="pickType"
+                android:text="food" />
 
             <RadioButton
                 android:id="@+id/trans_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="transportation"
-                android:onClick="pickType" />
+                android:onClick="pickType"
+                android:text="transportation" />
         </TableRow>
 
         <TableRow>
@@ -87,15 +86,15 @@
                 android:id="@+id/entertainment_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="entertainment"
-                android:onClick="pickType" />
+                android:onClick="pickType"
+                android:text="entertainment" />
 
             <RadioButton
                 android:id="@+id/shelter_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="shelter"
-                android:onClick="pickType" />
+                android:onClick="pickType"
+                android:text="shelter" />
         </TableRow>
 
         <TableRow>
@@ -104,11 +103,10 @@
                 android:id="@+id/others_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="others"
-                android:onClick="pickType" />
+                android:onClick="pickType"
+                android:text="others" />
 
         </TableRow>
-
 
     </TableLayout>
 
@@ -116,24 +114,24 @@
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:stretchColumns="0"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:stretchColumns="0">
 
         <TableRow
             android:layout_marginBottom="10dp"
             android:onClick="choosePayer">
 
             <TextView
-            android:layout_column="0"
-            android:text="Payer"
-            android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#5cbeb6"/>
+                android:layout_column="0"
+                android:text="Payer"
+                android:textColor="#5cbeb6"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_column="0"
-                android:text=">>"
                 android:layout_gravity="end"
+                android:text=">>"
                 android:textSize="16sp" />
         </TableRow>
 
@@ -145,8 +143,8 @@
                 android:id="@+id/payer"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:text=""
-                android:scaleType="fitStart" />
+                android:scaleType="fitStart"
+                android:text="" />
 
 
             <TextView
@@ -165,14 +163,14 @@
                 android:layout_column="0"
                 android:layout_marginBottom="10dp"
                 android:text="Members"
-                android:textStyle="bold"
                 android:textColor="#5cbeb6"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_column="0"
-                android:layout_marginBottom="10dp"
                 android:layout_gravity="end"
+                android:layout_marginBottom="10dp"
                 android:text=">>"
                 android:textSize="16sp" />
         </TableRow>
@@ -185,23 +183,23 @@
                 android:id="@+id/member"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:text=""
-                android:scaleType="fitStart" />
+                android:scaleType="fitStart"
+                android:text="" />
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:layout_marginBottom="40dp"
                 android:text="took part in"
-                android:textSize="17dp"
-                android:layout_marginBottom="40dp"/>
+                android:textSize="17dp" />
         </TableRow>
     </TableLayout>
 
     <Button
-        android:text="save"
-        android:onClick="saveExpense" />
+        android:onClick="saveExpense"
+        android:text="save" />
 </TableLayout>
 
 
